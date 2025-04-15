@@ -18,9 +18,6 @@ const articles = [
   },
 ];
 
-interface ArticlePageProps {
-  params: { slug: string };
-}
 
 export default async function ArticlePage({
     params,
