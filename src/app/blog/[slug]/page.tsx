@@ -1,8 +1,11 @@
-'use client'; // important car on manipule des données dynamiquement
+'use client';
 
 import { notFound } from 'next/navigation';
 
-// Simule une base de données d’articles
+type Props = {
+  params: { slug: string }
+}
+
 const articles = [
   {
     slug: 'apprendre-nextjs',
@@ -18,17 +21,9 @@ const articles = [
   },
 ];
 
-// 💡 Correction ici : on définit un type complet attendu par Next.js
-type PageProps = {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-export default function ArticlePage({ params }: PageProps) {
-  // On récupère le bon article en fonction du slug dans l’URL
+export default function ArticlePage({ params }: Props) {
   const article = articles.find((a) => a.slug === params.slug);
 
-  // Si aucun article ne correspond → page 404 native de Next
   if (!article) return notFound();
 
   return (
