@@ -1,10 +1,4 @@
-'use client';
-
 import { notFound } from 'next/navigation';
-
-type Props = {
-  params: { slug: string }
-}
 
 const articles = [
   {
@@ -21,7 +15,12 @@ const articles = [
   },
 ];
 
-export default function ArticlePage({ params }: Props) {
+// ✅ Ici : fonction async pour que Next.js soit content
+export default async function ArticlePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const article = articles.find((a) => a.slug === params.slug);
 
   if (!article) return notFound();
@@ -32,7 +31,9 @@ export default function ArticlePage({ params }: Props) {
         {article.tag}
       </span>
       <h1 className="text-3xl font-bold mb-6">{article.title}</h1>
-      <p className="text-gray-700 text-lg whitespace-pre-line">{article.content}</p>
+      <p className="text-gray-700 text-lg whitespace-pre-line">
+        {article.content}
+      </p>
     </section>
   );
 }
