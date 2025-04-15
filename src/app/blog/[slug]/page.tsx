@@ -1,5 +1,8 @@
+// src/app/blog/[slug]/page.tsx
+
 import { notFound } from 'next/navigation';
 
+// Simule une base de données d’articles
 const articles = [
   {
     slug: 'apprendre-nextjs',
@@ -15,28 +18,24 @@ const articles = [
   },
 ];
 
-// ✅ Ici : fonction async pour que Next.js soit content
-export default async function Page({
-    params,
-  }: {
-    params: Promise<{ slug: string }>
-  }) {
-    const { slug } = await params
-  
+interface ArticlePageProps {
+  params: { slug: string };
+}
+
+export default async function ArticlePage({ params }: ArticlePageProps) {
   const article = articles.find((a) => a.slug === params.slug);
-  
-    if (!article) return notFound();
-  
-    return (
-      <section className="max-w-3xl mx-auto px-4 py-16">
-        <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full inline-block mb-4">
-          {article.tag}
-        </span>
-        <h1 className="text-3xl font-bold mb-6">{article.title}</h1>
-        <p className="text-gray-700 text-lg whitespace-pre-line">
-          {article.content}
-        </p>
-      </section>
-    );
-  }
+
+  if (!article) return notFound();
+
+  return (
+    <section className="max-w-3xl mx-auto px-4 py-16">
+      <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full inline-block mb-4">
+        {article.tag}
+      </span>
+      <h1 className="text-3xl font-bold mb-6">{article.title}</h1>
+      <p className="text-gray-700 text-lg whitespace-pre-line">
+        {article.content}
+      </p>
+    </section>
+  );
 }
