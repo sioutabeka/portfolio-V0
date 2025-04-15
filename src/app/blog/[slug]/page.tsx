@@ -18,7 +18,13 @@ const articles = [
   },
 ];
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
+// 💡 Correction ici : on définit un type complet attendu par Next.js
+type PageProps = {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+export default function ArticlePage({ params }: PageProps) {
   // On récupère le bon article en fonction du slug dans l’URL
   const article = articles.find((a) => a.slug === params.slug);
 
